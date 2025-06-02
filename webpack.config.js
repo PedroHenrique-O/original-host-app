@@ -5,19 +5,11 @@ const { withZephyr } = require("zephyr-webpack-plugin");
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
 
-  // Debug logging
-  console.log("🔍 Build mode:", argv.mode);
-  console.log("🔍 Is production:", isProduction);
-
-  // According to Zephyr docs, use array format for production
   const remotesConfig = isProduction
-    ? ["remotetodo"] // Zephyr handles URL resolution automatically
+    ? ["remotetodo"]
     : {
-        // Development - localhost URLs
         remotetodo: "remotetodo@http://localhost:3001/remoteEntry.js",
       };
-
-  console.log("🔍 Remotes config:", remotesConfig);
 
   const baseConfig = {
     entry: "./src/index.ts",
@@ -58,9 +50,18 @@ module.exports = (env, argv) => {
         name: "host",
         remotes: remotesConfig,
         shared: {
-          react: { singleton: true },
-          "react-dom": { singleton: true },
-          "react-router-dom": { singleton: true },
+          react: {
+            singleton: true,
+            requiredVersion: "^18.2.0",
+          },
+          "react-dom": {
+            singleton: true,
+            requiredVersion: "^18.2.0",
+          },
+          "react-router-dom": {
+            singleton: true,
+            requiredVersion: "^6.30.1",
+          },
         },
       }),
       new HtmlWebpackPlugin({
