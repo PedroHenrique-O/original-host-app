@@ -4,38 +4,7 @@ import "./App.css";
 // import { tw } from "./utils/tw";
 
 // Use React.lazy with proper Module Federation import
-const RemoteTodoApp = React.lazy(() =>
-  import("remotetodo/TodoApp")
-    .then((module: any) => ({
-      default: module.default || module.TodoApp || module,
-    }))
-    .catch((err) => {
-      console.error("Failed to load remote module:", err);
-      // Return a fallback component
-      return {
-        default: () => (
-          <div className="federation-card max-w-2xl mx-auto">
-            <h2 className="text-xl font-semibold text-red-600 mb-4">
-              Remote Module Unavailable
-            </h2>
-            <p className="text-gray-700 mb-4">
-              The remote Todo component could not be loaded. This might be due
-              to:
-            </p>
-            <ul className="space-y-2 mb-4 text-gray-600">
-              <li>• Network connectivity issues</li>
-              <li>• Remote service being temporarily unavailable</li>
-              <li>• Module Federation configuration mismatch</li>
-            </ul>
-            <p className="text-gray-600">
-              Please try refreshing the page or contact support if the issue
-              persists.
-            </p>
-          </div>
-        ),
-      };
-    })
-);
+const RemoteTodoApp = React.lazy(() => import("remotetodo/TodoApp"));
 
 const App: React.FC = () => {
   return (
