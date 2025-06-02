@@ -4,7 +4,7 @@ import "./App.css";
 // import { tw } from "./utils/tw";
 
 // Lazy load the remote Todo component
-const RemoteTodoApp = React.lazy(() => import("remoteTodo/TodoApp"));
+const RemoteTodoApp = React.lazy(() => import("remotetodo/TodoApp"));
 
 const App: React.FC = () => {
   return (

@@ -41,7 +41,7 @@ const baseConfig = {
     new ModuleFederationPlugin({
       name: "host-app",
       remotes: {
-        remoteTodo: "remoteTodo",
+        remotetodo: "remotetodo",
       },
       shared: {
         react: {
