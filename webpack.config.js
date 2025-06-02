@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
     ? {
         remotetodo: `promise new Promise(resolve => {
           const remoteName = 'remotetodo';
-          const remoteUrl = 'https://pedro-henrique-85-remotetodo-original-remote-todo-d358dc977-ze.zephyrcloud.app/remoteEntry.js';
+          const remoteUrl = 'https://pedro-henrique-94-remotetodo-original-remote-todo-bb014e379-ze.zephyrcloud.app/remoteEntry.js';
           
           const script = document.createElement('script');
           script.src = remoteUrl;
