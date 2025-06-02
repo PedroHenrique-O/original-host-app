@@ -40,9 +40,7 @@ const baseConfig = {
   plugins: [
     new ModuleFederationPlugin({
       name: "host-app",
-      remotes: {
-        remotetodo: "remotetodo",
-      },
+      remotes: ["remotetodo"],
       shared: {
         react: {
           singleton: true,
