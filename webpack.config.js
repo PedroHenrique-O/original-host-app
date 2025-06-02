@@ -5,10 +5,38 @@ const { withZephyr } = require("zephyr-webpack-plugin");
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
 
+  // Use promise-based remotes for production to handle dynamic URLs
   const remotesConfig = isProduction
     ? {
-        remotetodo:
-          "remotetodo@https://pedro-henrique-75-remotetodo-original-remote-todo-d358dc977-ze.zephyrcloud.app/remoteEntry.js",
+        remotetodo: `promise new Promise(resolve => {
+          const remoteName = 'remotetodo';
+          const remoteUrl = 'https://pedro-henrique-85-remotetodo-original-remote-todo-d358dc977-ze.zephyrcloud.app/remoteEntry.js';
+          
+          const script = document.createElement('script');
+          script.src = remoteUrl;
+          script.onload = () => {
+            const proxy = {
+              get: (request) => window[remoteName].get(request),
+              init: (arg) => {
+                try {
+                  return window[remoteName].init(arg);
+                } catch(e) {
+                  console.log('remote container already initialized');
+                }
+              }
+            };
+            resolve(proxy);
+          };
+          script.onerror = () => {
+            console.error('Failed to load remote:', remoteUrl);
+            // Fallback or error handling
+            resolve({
+              get: () => Promise.reject(new Error('Remote not available')),
+              init: () => Promise.resolve()
+            });
+          };
+          document.head.appendChild(script);
+        })`,
       }
     : {
         remotetodo: "remotetodo@http://localhost:3001/remoteEntry.js",

@@ -39,6 +39,6 @@
     "zephyr-webpack-plugin": "^0.0.50"
   },
   "zephyrDependencies": {
-    "remotetodo": "1.0.0"
+    "remotetodo": "latest"
   }
 }
