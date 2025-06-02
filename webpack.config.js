@@ -5,6 +5,20 @@ const { withZephyr } = require("zephyr-webpack-plugin");
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
 
+  // Debug logging
+  console.log("🔍 Build mode:", argv.mode);
+  console.log("🔍 Is production:", isProduction);
+
+  // According to Zephyr docs, use array format for production
+  const remotesConfig = isProduction
+    ? ["remotetodo"] // Zephyr handles URL resolution automatically
+    : {
+        // Development - localhost URLs
+        remotetodo: "remotetodo@http://localhost:3001/remoteEntry.js",
+      };
+
+  console.log("🔍 Remotes config:", remotesConfig);
+
   const baseConfig = {
     entry: "./src/index.ts",
     mode: argv.mode || "development",
@@ -42,12 +56,7 @@ module.exports = (env, argv) => {
     plugins: [
       new ModuleFederationPlugin({
         name: "host",
-        remotes: isProduction
-          ? ["remotetodo"] // Zephyr production - array format
-          : {
-              // Development - localhost URLs
-              remotetodo: "remotetodo@http://localhost:3001/remoteEntry.js",
-            },
+        remotes: remotesConfig,
         shared: {
           react: { singleton: true },
           "react-dom": { singleton: true },
