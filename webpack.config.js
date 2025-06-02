@@ -1,7 +1,6 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { withZephyr } = require("zephyr-webpack-plugin");
-const path = require("path");
 
 const baseConfig = {
   entry: "./src/index.ts",
@@ -39,20 +38,14 @@ const baseConfig = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "host-app",
-      remotes: ["remotetodo"],
+      name: "host",
+      remotes: {
+        remotetodo: "remotetodo@[remotetodoUrl]/remoteEntry.js",
+      },
       shared: {
-        react: {
-          singleton: true,
-          requiredVersion: "^18.2.0",
-        },
-        "react-dom": {
-          singleton: true,
-          requiredVersion: "^18.2.0",
-        },
-        "react-router-dom": {
-          singleton: true,
-        },
+        react: { singleton: true },
+        "react-dom": { singleton: true },
+        "react-router-dom": { singleton: true },
       },
     }),
     new HtmlWebpackPlugin({

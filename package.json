@@ -1,5 +1,5 @@
 {
-  "name": "host-app",
+  "name": "host",
   "version": "1.0.0",
   "description": "Host application for Module Federation Todo",
   "main": "src/index.js",
