@@ -6,7 +6,10 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
 
   const remotesConfig = isProduction
-    ? ["remotetodo"]
+    ? {
+        remotetodo:
+          "remotetodo@https://pedro-henrique-75-remotetodo-original-remote-todo-d358dc977-ze.zephyrcloud.app/remoteEntry.js",
+      }
     : {
         remotetodo: "remotetodo@http://localhost:3001/remoteEntry.js",
       };
